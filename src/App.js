@@ -5,6 +5,7 @@ import { withNameProvider } from './context/NameContext';
 import Dropzone from './components/Dropzone';
 import { withDropProvider } from './context/DropContext';
 import ImageGrid from './components/ImageGrid';
+import { compose } from 'recompose';
 
 const WrappedComp = AuthWrapper(HookComponent);
 
@@ -24,4 +25,7 @@ class App extends Component {
   }
 }
 
-export default withDropProvider(withNameProvider(App));
+export default compose(
+  withDropProvider,
+  withNameProvider
+)(App);

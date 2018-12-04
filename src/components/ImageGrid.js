@@ -1,19 +1,19 @@
-import React, { Component } from 'react';
-import { withDropContext } from '../context/DropContext';
+import React from 'react';
+import { DropContext } from '../context/DropContext';
+import { fromRenderProps } from 'recompose';
 
-class ImageGrid extends Component {
-  render() {
-    const { images } = this.props.dropContext;
-    return (
-      <div className="image-grid">
-        {images.map((imgSrc, idx) => (
-          <div className="image-grid-cell">
-            <img key={idx} className="image-grid-img" src={imgSrc} alt="" />
-          </div>
-        ))}
-      </div>
-    );
-  }
-}
+const ImageGrid = ({ images }) => {
+  return (
+    <div className="image-grid">
+      {images.map((imgSrc, idx) => (
+        <div key={idx} className="image-grid-cell">
+          <img className="image-grid-img" src={imgSrc} alt="" />
+        </div>
+      ))}
+    </div>
+  );
+};
 
-export default withDropContext(ImageGrid);
+export default fromRenderProps(DropContext.Consumer, ({ images }) => ({
+  images
+}))(ImageGrid);

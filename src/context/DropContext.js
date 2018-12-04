@@ -4,7 +4,7 @@ import { withConsumer, withProvider } from './common';
 export const DropContext = createContext();
 
 export class DropProvider extends Component {
-  state = { images: [] };
+  state = { images: [], testcontext: '' };
 
   addImage = imgSrc =>
     this.setState({ images: [...this.state.images, imgSrc] });
@@ -19,7 +19,7 @@ export class DropProvider extends Component {
 }
 
 export const withDropContext = WrappedComponent =>
-  withConsumer(WrappedComponent, DropContext.Consumer, 'dropContext');
+  withConsumer(WrappedComponent, DropContext.Consumer);
 
 export const withDropProvider = WrappedComponent =>
   withProvider(WrappedComponent, DropProvider);
