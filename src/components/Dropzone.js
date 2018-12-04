@@ -27,7 +27,7 @@ class HookComponent extends React.Component {
     this.setDragOver(true);
   };
 
-  onDrop = e => {
+  onDrop = async e => {
     e.stopPropagation();
     e.preventDefault();
 
@@ -38,16 +38,16 @@ class HookComponent extends React.Component {
     const { addImage } = this.props.dropContext;
 
     if (files.length > 0) {
-      getBase64(files[0])
-        .then(data => {
-          console.log(data);
-          if (data.startsWith('data:image')) {
-            addImage(data);
-          } else {
-            console.log('not a valid image');
-          }
-        })
-        .catch(err => console.error(err));
+      try {
+        const data = await getBase64(files[0]);
+        if (data.startsWith('data:image')) {
+          addImage(data);
+        } else {
+          console.log('not a valid image');
+        }
+      } catch (err) {
+        console.error(err);
+      }
     } else {
       const data = e.dataTransfer.getData('text/html');
       const doc = new DOMParser().parseFromString(data, 'text/html');
@@ -71,10 +71,13 @@ class HookComponent extends React.Component {
           onDragOver={this.onDragOver}
           onDrop={this.onDrop}
           onDragLeave={e => this.setDragOver(false)}
-        />
-        {images.map((imgUrl, idx) => (
-          <img key={idx} src={imgUrl} alt="" />
-        ))}
+        >
+          <div
+            className={classnames('drop-text', { hide: !this.state.dragOver })}
+          >
+            <h2>Drop here</h2>
+          </div>
+        </div>
       </React.Fragment>
     );
   }
