@@ -1,13 +1,11 @@
-import { compose, fromRenderProps } from 'recompose';
+import { compose } from 'recompose';
 
 import withState from './withState';
 import withAddImage from './withAddImage';
-import { DropContext } from '../../../context/DropContext';
+import { withDropContext } from '../../../context/DropContext';
 
 const withLogic = compose(
-  fromRenderProps(DropContext.Consumer, ({ addImage }) => ({
-    addImageToContext: addImage
-  })),
+  withDropContext,
   withState,
   withAddImage
 );

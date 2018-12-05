@@ -14,7 +14,7 @@ class App extends Component {
     return (
       <div className="content col">
         <WrappedComp isLoggedIn={true} />
-        <WrappedComp isLoggedIn={true} />
+        <WrappedComp isLoggedIn={false} />
         <div className="row">
           <Dropzone />
           <Dropzone />

@@ -1,14 +1,10 @@
-import React, { Component } from 'react';
+import React from 'react';
 
-const AuthWrapper = WrappedComponent => {
-  return class extends Component {
-    render() {
-      if (this.props.isLoggedIn) {
-        return <WrappedComponent {...this.props} />;
-      }
-      return <p>Your not logged in :(</p>;
-    }
-  };
-};
+const AuthWrapper = WrappedComponent => props => (
+  <React.Fragment>
+    {props.isLoggedIn && <WrappedComponent {...props} />}
+    {!props.isLoggedIn && <p>You're not logged in :(</p>}
+  </React.Fragment>
+);
 
 export default AuthWrapper;

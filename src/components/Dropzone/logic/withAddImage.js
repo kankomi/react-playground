@@ -1,39 +1,36 @@
 import { withHandlers } from 'recompose';
 import { getBase64 } from '../../../utils';
 
-const addImage = (props, e) => {
-  console.log(props);
-
+/**
+ * Adds an image from a drop event to the drop context.
+ * @param {*} props Properties
+ * @param {*} e Drop event
+ */
+const addImage = async (props, e) => {
   e.stopPropagation();
   e.preventDefault();
   console.log(e.dataTransfer);
   const { files } = e.dataTransfer;
-  const { addImageToContext } = props;
-
-  if (!addImageToContext) {
-    console.error('addImageToContext is not in props!');
-    return false;
-  }
+  const { addImage } = props.dropContext;
 
   if (files.length > 0) {
-    getBase64(files[0])
-      .then(data => {
-        if (data.startsWith('data:image')) {
-          addImageToContext(data);
-        } else {
-          console.log('not a valid image');
-        }
-      })
-      .catch(err => {
-        console.error(err);
-      });
+    try {
+      const data = await getBase64(files[0]);
+      if (data.startsWith('data:image')) {
+        addImage(data);
+      } else {
+        console.log('not a valid image');
+      }
+    } catch (err) {
+      console.error(err);
+    }
   } else {
     const data = e.dataTransfer.getData('text/html');
     const doc = new DOMParser().parseFromString(data, 'text/html');
     const imgNode = doc.querySelector('img');
 
     if (imgNode) {
-      addImageToContext(imgNode.src);
+      addImage(imgNode.src);
     }
   }
 };

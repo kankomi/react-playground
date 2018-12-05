@@ -19,7 +19,7 @@ export class DropProvider extends Component {
 }
 
 export const withDropContext = WrappedComponent =>
-  withConsumer(WrappedComponent, DropContext.Consumer);
+  withConsumer(WrappedComponent, DropContext.Consumer, 'dropContext');
 
 export const withDropProvider = WrappedComponent =>
   withProvider(WrappedComponent, DropProvider);
