@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import HookComponent from './components/HookComponent';
+import NameSelector from './components/Dropzone/NameSelector';
 import AuthWrapper from './components/AuthWrapper';
 import { withNameProvider } from './context/NameContext';
 import Dropzone from './components/Dropzone';
@@ -7,7 +7,7 @@ import { withDropProvider } from './context/DropContext';
 import ImageGrid from './components/ImageGrid';
 import { compose } from 'recompose';
 
-const WrappedComp = AuthWrapper(HookComponent);
+const WrappedComp = AuthWrapper(NameSelector);
 
 class App extends Component {
   render() {

@@ -1,7 +1,6 @@
 import React from 'react';
-import { withNameContext } from '../context/NameContext';
 
-const HookComponent = ({ nameContext: { name, changeName } }) => (
+const NameSelector = ({ nameContext: { name, changeName } }) => (
   <React.Fragment>
     <h1>Hello {name}</h1>
     <button className="btn" onClick={changeName}>
@@ -10,4 +9,4 @@ const HookComponent = ({ nameContext: { name, changeName } }) => (
   </React.Fragment>
 );
 
-export default withNameContext(HookComponent);
+export default NameSelector;
