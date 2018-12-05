@@ -38,6 +38,10 @@ code {
   padding: 3px;
 }
 
+.dropzone * {
+  pointer-events: none;
+}
+
 .drop-text {
   margin: auto;
   color: var(--light);
